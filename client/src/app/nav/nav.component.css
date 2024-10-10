@@ -1,3 +1,8 @@
+.container-fluid {
+    margin: 0 2rem;
+}
+
 .dropdown-toggle, .dropdown-item {
     cursor: pointer;
+    text-decoration: none;
 }
