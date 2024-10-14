@@ -13,11 +13,12 @@ namespace DatingApp2.Controllers
             _context = context;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("auth")]
         public ActionResult<string> GetSecret()
         {
-            return "secret text";
+            //return "secret text";
+            return Unauthorized(0);
         }
 
         [HttpGet("not-found")]
