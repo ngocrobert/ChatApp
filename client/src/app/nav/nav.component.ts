@@ -22,7 +22,7 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
     //throw new Error('Method not implemented.');
     //this.getCurrentUser();
-    this.currentUser$ = this.accountService.currentUesr$;
+    this.currentUser$ = this.accountService.currentUser$;
   }
 
   // login() {
@@ -43,7 +43,7 @@ export class NavComponent implements OnInit {
     this.accountService.login(this.model).subscribe(response => {
       // login thành công -> chuyển đến trang members
       this.router.navigateByUrl('/members');
-      //console.log(response);
+      console.log(response);
     });
   }
 
@@ -54,7 +54,7 @@ export class NavComponent implements OnInit {
   }
 
   // getCurrentUser() { 
-  //   this.accountService.currentUesr$.subscribe(user => {
+  //   this.accountService.currentUser$.subscribe(user => {
   //     this.loggedIn = !!user;
   //   }, error => {
   //     console.log(error);

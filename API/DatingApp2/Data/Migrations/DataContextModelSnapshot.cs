@@ -67,7 +67,7 @@ namespace DatingApp2.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("DatingApp2.Entities.Photo", b =>
@@ -93,7 +93,7 @@ namespace DatingApp2.Data.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Photos");
+                    b.ToTable("Photos", (string)null);
                 });
 
             modelBuilder.Entity("DatingApp2.Entities.Photo", b =>

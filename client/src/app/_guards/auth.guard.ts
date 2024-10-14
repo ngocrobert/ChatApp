@@ -9,7 +9,7 @@ export const authGuard: CanActivateFn = (route, state): Observable<boolean> | bo
   const toastr = inject(ToastrService);
   //const router = inject(Router);
 
-  return accountService.currentUesr$.pipe(
+  return accountService.currentUser$.pipe(
     take(1),
     map(user => {
       if(user) return true;

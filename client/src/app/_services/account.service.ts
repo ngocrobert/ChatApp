@@ -3,16 +3,19 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { User } from '../_models/user';
 import { ReplaySubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  baseUrl = 'https://localhost:5001/api/';
+  //baseUrl = 'https://localhost:5001/api/';
+  baseUrl = environment.apiUrl;
+
   // lưu trạng thái user hiện tại
   private currentUserSource = new ReplaySubject<User>(1);
   // nghe sự thay đổi của user hiện tại
-  currentUesr$ = this.currentUserSource.asObservable();
+  currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient) { }
 
