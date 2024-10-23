@@ -1,5 +1,6 @@
 ﻿using API.DTOs;
 using API.Extensions;
+using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using DatingApp2.Data;
@@ -32,25 +33,45 @@ namespace DatingApp2.Controllers
             _photoService = photoService;
         }
 
+        //[HttpGet]
+        ////[AllowAnonymous]
+        //public async Task<ActionResult<IEnumerable<MemberDto>>> GetUers()
+        //{
+        //    //var users = await _userRepository.GetUsersAsync();
+
+        //    //var usersToReturn = _mapper.Map<IEnumerable<MemberDto>>(users);
+
+        //    //return Ok(usersToReturn);
+
+        //    var users = await _userRepository.GetMembersAsync();
+        //    return Ok(users);
+
+
+        //}
+
         [HttpGet]
-        //[AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUers()
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUers([FromQuery] UserParams userParams)
         {
-            //var users = await _userRepository.GetUsersAsync();
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            userParams.CurrentUserName = user.UserName;
 
-            //var usersToReturn = _mapper.Map<IEnumerable<MemberDto>>(users);
+            if (string.IsNullOrEmpty(userParams.Gender))
+            {
+                userParams.Gender = user.Gender == "male" ? "female" : "male";
+            }
 
-            //return Ok(usersToReturn);
+            var users = await _userRepository.GetMembersAsync(userParams);
 
-            var users = await _userRepository.GetMembersAsync();
+            Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
+
             return Ok(users);
 
 
         }
 
-        
+
         //[HttpGet("{id}")]
-        
+
         //public async Task<ActionResult<AppUser>> GetUser(int id)
         //{
         //    var user = await _userRepository.GetUserByIdAsync(id);

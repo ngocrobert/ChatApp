@@ -1,4 +1,5 @@
-﻿using DatingApp2.DTOs;
+﻿using API.Helpers;
+using DatingApp2.DTOs;
 using DatingApp2.Entities;
 
 namespace DatingApp2.Interfaces
@@ -10,7 +11,9 @@ namespace DatingApp2.Interfaces
         Task<IEnumerable<AppUser>> GetUsersAsync();
         Task<AppUser> GetUserByIdAsync(int id);
         Task<AppUser> GetUserByUsernameAsync(string username);
-        Task<IEnumerable<MemberDto>> GetMembersAsync();
+        //Task<IEnumerable<MemberDto>> GetMembersAsync();
+        Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams);
+
         Task<MemberDto> GetMemberAsync(string username);
 
     }
