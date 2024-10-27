@@ -157,4 +157,26 @@ export class MembersService {
   deletePhoto(photoId: number) {
     return this.http.delete(this.baseUrl + 'users/delete-photo/' + photoId);
   }
+
+  /**
+   * Phuong thuc  like 1 user khac
+   * @param username 
+   * @returns 
+   */
+  addLike(username: string) {
+    return this.http.post(this.baseUrl + 'likes/' + username, {});
+  }
+
+  /**
+   * Lấy ra danh sách user được like
+   * @param predicate 
+   * @returns 
+   */
+  getLikes(predicate: string, pageNumber, pageSize) {
+    let params = this.getPaginationHeaders(pageNumber, pageSize);
+    params = params.append('predicate', predicate);
+
+    //return this.http.get<Partial<Member[]>>(this.baseUrl + 'likes?predicate=' + predicate);
+    return this.getPaginatedResult<Partial<Member[]>>(this.baseUrl + 'likes', params);
+  }
 }

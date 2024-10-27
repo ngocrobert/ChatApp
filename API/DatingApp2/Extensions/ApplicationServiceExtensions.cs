@@ -1,4 +1,5 @@
-﻿using API.Helpers;
+﻿using API.Data;
+using API.Helpers;
 using API.Interfaces;
 using API.Services;
 using DatingApp2.Data;
@@ -23,6 +24,7 @@ namespace DatingApp2.Extensions
             services.AddScoped<IPhotoService, PhotoService>();
 
             services.AddScoped<LogUserActivity>();
+            services.AddScoped<ILikesRepository, LikesRepository>();
 
             services.AddDbContext<DataContext>(options =>
             {
