@@ -1,4 +1,5 @@
-﻿using DatingApp2.Extensions;
+﻿using API.Entities;
+using DatingApp2.Extensions;
 
 namespace DatingApp2.Entities
 {
@@ -24,6 +25,9 @@ namespace DatingApp2.Entities
 
         public ICollection<UserLike> LikedByUsers { get; set; }
         public ICollection<UserLike> LikedUsers { get; set; }
+
+        public ICollection<Message> MessagesSent { get; set; }
+        public ICollection<Message> MessagesReceived { get; set; }
 
         //public int GetAge()
         //{
