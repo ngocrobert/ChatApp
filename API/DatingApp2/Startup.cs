@@ -1,4 +1,5 @@
-﻿using DatingApp2.Data;
+﻿using API.SignalR;
+using DatingApp2.Data;
 using DatingApp2.Extensions;
 using DatingApp2.Interfaces;
 using DatingApp2.Middleware;
@@ -98,7 +99,7 @@ namespace DatingApp
             //service Jwt... trên chuyển vô đây
             services.AddIdentityService(_config);
 
-            
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -117,7 +118,10 @@ namespace DatingApp
 
             app.UseRouting();
 
-            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+            app.UseCors(policy => policy.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials()
+                .WithOrigins("https://localhost:4200"));
             //app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod());
 
             app.UseAuthentication();
@@ -126,6 +130,9 @@ namespace DatingApp
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<PresenceHub>("hubs/presence");
+                endpoints.MapHub<MessageHub>("hubs/message");
+
             });
         }
     }
