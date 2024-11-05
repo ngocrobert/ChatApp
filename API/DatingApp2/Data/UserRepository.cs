@@ -80,10 +80,15 @@ namespace DatingApp2.Data
                 .ToListAsync();
         }
 
-        public async Task<bool> SaveAllAsync()
+        public async Task<string> GeUserGender(string username)
         {
-            return await _context.SaveChangesAsync() > 0;
+            return await _context.Users.Where(x => x.UserName == username).Select(x => x.Gender).FirstOrDefaultAsync();
         }
+
+        //public async Task<bool> SaveAllAsync()
+        //{
+        //    return await _context.SaveChangesAsync() > 0;
+        //}
 
         //sử dụng để đánh dấu một thực thể (AppUser trong trường hợp này) là đã bị thay đổi (modified)
         public void Update(AppUser user)

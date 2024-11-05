@@ -20,16 +20,20 @@ namespace DatingApp2.Extensions
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
 
             services.AddScoped<ITokenService, TokenService>();
+            // bỏ vì dùng UnitOfWork
 
-            services.AddScoped<IUserRepository, UserRepository>();
+            //services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
             services.AddScoped<IPhotoService, PhotoService>();
 
             services.AddScoped<LogUserActivity>();
-            services.AddScoped<ILikesRepository, LikesRepository>();
+            // bỏ vì dùng UnitOfWork
+            //services.AddScoped<ILikesRepository, LikesRepository>();
 
-            services.AddScoped<IMessageRepository, MessageRepository>();
+            //services.AddScoped<IMessageRepository, MessageRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddDbContext<DataContext>(options =>
             {

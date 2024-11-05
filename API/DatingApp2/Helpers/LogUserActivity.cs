@@ -1,4 +1,5 @@
 ﻿using API.Extensions;
+using API.Interfaces;
 using DatingApp2.Interfaces;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,12 +21,16 @@ namespace API.Helpers
             var userId = resultContext.HttpContext.User.GetUserId();
 
             //truy xuất dịch vụ IUserRepository từ RequestServices, cho phép ta tương tác với cơ sở dữ liệu liên quan đến người dùng
-            var repo = resultContext.HttpContext.RequestServices.GetService<IUserRepository>();
-            //var user = await repo.GetUserByUsernameAsync(username);
-            var user = await repo.GetUserByIdAsync(userId);
+            //var repo = resultContext.HttpContext.RequestServices.GetService<IUserRepository>();
+            var uow = resultContext.HttpContext.RequestServices.GetService<IUnitOfWork>();
 
-            user.LastActive = DateTime.Now;
-            await repo.SaveAllAsync();
+            //var user = await repo.GetUserByUsernameAsync(username);
+            //var user = await repo.GetUserByIdAsync(userId);
+            var user = await uow.UserRepository.GetUserByIdAsync(userId);
+
+
+            user.LastActive = DateTime.UtcNow;
+            await uow.Complete();
         }
     }
 }
